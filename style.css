@@ -1,0 +1,32 @@
+:root {
+    --bg-color: #111;
+    --canvas-bg: #000;
+    --text-color: #fff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+canvas {
+    background-color: var(--canvas-bg);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    display: block;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+    pointer-events: none; /* UI가 마우스 클릭을 방해하지 않도록 처리 */
+    text-shadow: 3px 3px 9px black;
+    z-index: 10;
+}
