@@ -33,12 +33,25 @@ const ctx = canvas.getContext('2d');
 const imageFiles = {
     'player': 'assets/player.png',
     'bomb': 'assets/bomb.png',
-    'sun': 'assets/sun.png'
+    'sun': 'assets/sun.png',
+    'explosion': 'assets/explosion.png',
+    'hp': 'assets/hp.png',
+    'score': 'assets/score.png',
+    'gameover': 'assets/gameover.png',
+    'replay_on': 'assets/replay_on.png',
+    'replay_off': 'assets/replay_off.png',
+    'healing': 'assets/healing.png',
+    'llama': 'assets/llama.png',
+    'llama_spit': 'assets/llama_spit.png',
+    '1': 'assets/1.png',
+    '2': 'assets/2.png',
+    '3': 'assets/3.png'
 };
 
 const SceneManager = {
     currentScene: null,
     assetManager: new AssetManager(),
+    canvas: canvas,
 
     changeScene(sceneName, now = performance.now()) {
         if (sceneName === 'title') {
@@ -77,6 +90,16 @@ window.addEventListener('keyup', (e) => {
         SceneManager.currentScene.handleInput(e, 'keyup');
     }
 });
+window.addEventListener('mousedown', (e) => {
+    if (SceneManager.currentScene) {
+        SceneManager.currentScene.handleInput(e, 'mousedown');
+    }
+});
+window.addEventListener('mouseup', (e) => {
+    if (SceneManager.currentScene) {
+        SceneManager.currentScene.handleInput(e, 'mouseup');
+    }
+});
 
 // --- 메인 루프 ---
 let lastTime = performance.now();
@@ -85,11 +108,15 @@ function gameLoop(currentTime) {
     let dt = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
-    // --- 씬 업데이트 ---
-    SceneManager.currentScene.update(dt);
+    if (dt < 1) {
 
-    // --- 씬 렌더링 ---
-    SceneManager.currentScene.render(ctx);
+        // --- 씬 업데이트 ---
+        SceneManager.currentScene.update(dt);
+
+        // --- 씬 렌더링 ---
+        SceneManager.currentScene.render(ctx);
+
+    }
     
     requestAnimationFrame(gameLoop);
 }

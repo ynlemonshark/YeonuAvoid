@@ -13,7 +13,9 @@ export default class Bomb {
      * @param {number} startAngle 폭탄의 초기 회전 각도 (도 단위)
      * @param {number} angleSpeed 폭탄의 회전 속도 (도/초 단위)
     */
-    constructor(x, y, velox, veloy, grav, size, startAngle=0, angleSpeed=0) {
+    constructor(damage, x, y, velox, veloy, grav, size, startAngle=0, angleSpeed=0) {
+        this.damage = damage;
+
         this.x = x;
         this.y = y;
         this.velox = velox;
@@ -43,6 +45,13 @@ export default class Bomb {
     render(ctx, bombImage, isImageLoaded) {
         drawTexture(ctx, bombImage, isImageLoaded,
                     this.posx - this.size, this.posy - this.size, this.size * 2, this.size * 2, this.angle);
+    }
+
+    isColliding(player) {
+        const dx = this.posx - player.x;
+        const dy = this.posy - player.y;
+        const distance = dx ** 2 + dy ** 2;
+        return (distance < (this.size + player.size * 0.7) ** 2);
     }
 
     isDead() {

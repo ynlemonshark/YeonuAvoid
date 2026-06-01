@@ -19,9 +19,9 @@ export default class TitleScene extends Scene {
 
     render(ctx) {
         ctx.fillStyle = '#000000ff';
-        ctx.fillRect(0, 0, 800, 800);
+        ctx.fillRect(0, 0, 800, 900);
         drawText(ctx, '그것은 매우 즐거운!', 200, 380, `${this.deco_size}px Arial`, 'red', 12, 1);
-        drawText(ctx, 'Web Avoid', 400, 350, '48px Arial', 'white', 0, 1);
-        drawText(ctx, 'Press [Space] to Start', 400, 450, '24px Arial', 'white', 0, 1);
+        drawText(ctx, 'Yeonu Avoid', 400, 350, '48px Arial', 'white', 0, 1);
+        drawText(ctx, '스페이스 바 를 눌러 시작하다', 400, 450, '24px Arial', 'white', 0, 1);
     }
 }

@@ -44,6 +44,14 @@ export function drawDebugRect(ctx, x, y, w, h, color = 'cyan', alpha = 1) {
     ctx.restore();
 }
 
+export function drawRect(ctx, x, y, w, h, color, alpha = 1) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+    ctx.restore();
+}
+
 export function drawText(ctx, text, x, y, font = '16px Arial', color = 'white', angle = 0, alpha = 1) {
     ctx.save();
     ctx.globalAlpha = alpha;
