@@ -1,4 +1,4 @@
-import Scene from "./Scene.js";
+import Scene from "./scene.js";
 import { drawText } from "../utils.js";
 
 export default class TitleScene extends Scene {

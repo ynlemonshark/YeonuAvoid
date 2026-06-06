@@ -1,4 +1,4 @@
-import Scene from './Scene.js';
+import Scene from './scene.js';
 import { drawTexture, drawRect, drawText } from '../utils.js';
 import Explosion from '../object/Explosion.js';
 import Pattern from '../object/Pattern.js';
