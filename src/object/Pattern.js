@@ -9,7 +9,7 @@ export default class Pattern {
         this.span = [];
         
         if (new.target === Pattern) {
-            const patterns = [Pattern1, Pattern2, Pattern3, Pattern4, Pattern5];
+            const patterns = [Pattern1, Pattern2, Pattern3, Pattern4, Pattern5, Pattern6];
             let pattern = Math.floor(Math.random() * patterns.length);
             if (typeof intendedPattern === 'number' && !isNaN(intendedPattern)) {
                 if (intendedPattern >= 0 && intendedPattern < patterns.length) {
@@ -255,4 +255,51 @@ class Pattern5 extends Pattern {
 
     }
 
+}
+
+
+class Pattern6 extends Pattern {
+    constructor(acc, makeTime) {
+        super(acc, makeTime);
+        this.span = [0.2, 3, 7, 3];
+        this.warn = false;
+        this.warnings = [];
+        this.waveterm = 0;
+        this.waveinterval = 1.3;
+        this.waves = [];
+    }
+
+    update(dt, bombs, player) {
+        this.time += dt * this.acc;
+        const phase = this.getPhase();
+        if (phase === 1) {
+            if (this.warn === false) {
+                this.warn = true;
+                this.warnings.push(new WarningGlittering(0, 650, 800, 150, 3 / this.acc, 1 / this.acc));
+            }
+        } else if (phase === 2) {
+            this.waveterm += dt * this.acc;
+            if (this.waveterm >= this.waveinterval) {
+                this.waveterm -= this.waveinterval;
+                this.waves.push({ going: 0, last_going: -26 });
+            }
+        }
+        if (2 <= phase && phase <= 3) {
+            for (const wave of this.waves) {
+                wave.going += dt * this.acc * 300;
+                if (wave.last_going < wave.going) {
+                    wave.last_going += 26;
+                    bombs.push(new Bomb(1, wave.last_going + 13, 814, 0,
+                        -1500 * this.acc, 7500 * this.acc ** 2, 15));
+                }
+            }
+        }
+
+        this.warnings.forEach(warning => warning.update(dt * this.acc));
+        this.warnings = this.warnings.filter(warning => !warning.isDead());
+    }
+
+    render(assetManager, ctx) {
+        this.warnings.forEach(warning => warning.render(ctx));
+    }
 }
