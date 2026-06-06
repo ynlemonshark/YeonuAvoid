@@ -1,5 +1,5 @@
 import Scene from './scene.js';
-import { drawTexture, drawRect, drawText } from '../utils.js';
+import { drawTexture, drawRect, drawText, downloadCanvasBlob } from '../utils.js';
 import Explosion from '../object/Explosion.js';
 import Pattern from '../object/Pattern.js';
 
@@ -47,6 +47,12 @@ export default class GameScene extends Scene {
             w: 265,
             h: 75
         }
+        this.download_button = {
+            x: 379,
+            y: 650,
+            w: 42,
+            h: 42
+        }
     }
 
     handleInput(e, type) {
@@ -64,14 +70,23 @@ export default class GameScene extends Scene {
             const posx = (e.x - canvas_rect.x) * (this.sceneManager.canvas.width / canvas_rect.width);
             const posy = (e.y - canvas_rect.y) * (this.sceneManager.canvas.height / canvas_rect.height);
             if (this.hp <= 0) {
-                console.log("mousedown!");
+                // check replay button
                 if (this.replay_button.x < posx &&
                     posx - canvas_rect.x < this.replay_button.x + this.replay_button.w &&
                     this.replay_button.y < posy &&
                     posy < this.replay_button.y + this.replay_button.h
                 ) {
                     this.click_replay = true;
-                console.log("mousedown2!");
+                }
+                // check download button
+                if (this.download_button.x < posx &&
+                    posx - canvas_rect.x < this.download_button.x + this.download_button.w &&
+                    this.download_button.y < posy &&
+                    posy < this.download_button.y + this.download_button.h
+                ) {
+                    if (confirm('게임 기록을 이미지로 다운로드하시겠습니까?\n(이미지 800x900)')) {
+                        downloadCanvasBlob(this.sceneManager.canvas, `YeonuAvoid_score_${this.score}.png`);
+                    }
                 }
             }
         } else if (type === 'mouseup') {
@@ -231,6 +246,9 @@ export default class GameScene extends Scene {
                     this.sceneManager.assetManager.isImageLoaded('replay_on'),
                     this.replay_button.x, this.replay_button.y, this.replay_button.w, this.replay_button.h);
             }
+            drawTexture(ctx, this.sceneManager.assetManager.get('download'),
+            this.sceneManager.assetManager.isImageLoaded('download'),
+            this.download_button.x, this.download_button.y, this.download_button.w, this.download_button.h);
         }
         if (this.playTime < 0) {
             const i = Math.floor(Math.abs(this.playTime)) + 1;

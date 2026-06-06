@@ -45,7 +45,8 @@ const imageFiles = {
     'llama_spit': 'assets/llama_spit.png',
     '1': 'assets/1.png',
     '2': 'assets/2.png',
-    '3': 'assets/3.png'
+    '3': 'assets/3.png',
+    'download': 'assets/download.png',
 };
 
 const SceneManager = {
@@ -108,7 +109,7 @@ function gameLoop(currentTime) {
     let dt = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
-    if (dt < 1) {
+    if (dt < 0.5) { // 프레임 드랍 방지
 
         // --- 씬 업데이트 ---
         SceneManager.currentScene.update(dt);
@@ -116,6 +117,8 @@ function gameLoop(currentTime) {
         // --- 씬 렌더링 ---
         SceneManager.currentScene.render(ctx);
 
+    } else {
+        console.warn('프레임 드랍 감지: dt =', dt);
     }
     
     requestAnimationFrame(gameLoop);

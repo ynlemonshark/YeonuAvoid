@@ -68,3 +68,22 @@ export function drawText(ctx, text, x, y, font = '16px Arial', color = 'white', 
     }
     ctx.restore();
 }
+
+export function downloadCanvasBlob(canvas, filename = 'my-canvas-image.png') {
+
+    // 1. 캔버스를 Blob 데이터로 변환
+    canvas.toBlob(function(blob) {
+        const link = document.createElement('a');
+        link.download = filename;
+
+        // 2. Blob 데이터를 가리키는 임시 URL 생성
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+
+        // 3. 다운로드 실행
+        link.click();
+
+        // 4. 다운로드가 끝나면 사용한 임시 URL을 메모리에서 해제
+        URL.revokeObjectURL(url);
+    }, 'image/png');
+}

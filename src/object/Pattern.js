@@ -275,7 +275,7 @@ class Pattern6 extends Pattern {
         if (phase === 1) {
             if (this.warn === false) {
                 this.warn = true;
-                this.warnings.push(new WarningGlittering(0, 650, 800, 150, 3 / this.acc, 1 / this.acc));
+                this.warnings.push(new WarningGlittering(0, 670, 800, 130, 3 / this.acc, 1 / this.acc));
             }
         } else if (phase === 2) {
             this.waveterm += dt * this.acc;
@@ -290,7 +290,7 @@ class Pattern6 extends Pattern {
                 if (wave.last_going < wave.going) {
                     wave.last_going += 26;
                     bombs.push(new Bomb(1, wave.last_going + 13, 814, 0,
-                        -1500 * this.acc, 7500 * this.acc ** 2, 15));
+                        -1300 * this.acc, 6500 * this.acc ** 2, 15));
                 }
             }
         }

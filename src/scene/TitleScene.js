@@ -22,7 +22,8 @@ export default class TitleScene extends Scene {
         ctx.fillRect(0, 0, 800, 900);
         drawText(ctx, '그것은 매우 즐거운!', 200, 380, `${this.deco_size}px Arial`, 'red', 12, 1);
         drawText(ctx, 'Yeonu Avoid', 400, 350, '48px Arial', 'white', 0, 1);
-        drawText(ctx, '스페이스 바 를 눌러 시작하다', 400, 450, '24px Arial', 'white', 0, 1);
-        drawText(ctx, 'Version alpha 1.1.1', 100, 870, `20px Arial`, 'white', 0, 1);
+        drawText(ctx, 'F 를 누르다!', 400, 450, '50px Arial', 'white', 0, 1);
+        drawText(ctx, '스페이스 바 를 눌러 시작하다', 400, 520, '24px Arial', 'white', 0, 1);
+        drawText(ctx, 'Version alpha 1.2.0', 100, 870, `20px Arial`, 'white', 0, 1);
     }
 }
