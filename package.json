@@ -1,7 +1,10 @@
 {
   "name": "vanilla-js-project",
   "version": "1.0.0",
+  "dependencies": {
+    "serve": "^14.2.6"
+  },
   "scripts": {
-    "start": "npx serve . -l $PORT"
+    "start": "serve ."
   }
 }
